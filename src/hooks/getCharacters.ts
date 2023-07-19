@@ -2,7 +2,7 @@ import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { rickAndMortyApi } from "../api/rickAndMortyApi";
 
 const fetchCharacters = async (ctx: QueryFunctionContext) => {
-  const [page] = ctx.queryKey;
+  const [_, page] = ctx.queryKey;
   const { data } = await rickAndMortyApi.get(`/character?page=${page}`);
   return data;
 };
