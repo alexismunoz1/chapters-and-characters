@@ -10,7 +10,7 @@ interface Props {
 export const ShowCharacters = ({ title, setEpisodesCharacter }: Props) => {
   const [characterNameValue, setCharacterNameValue] = useState("");
   const [pageNumber, setPageNumber] = useState<number>(1);
-  const characters = useCharacters(pageNumber, characterNameValue);
+  const { data: characters } = useCharacters(pageNumber, characterNameValue);
 
   const handleCharacterName = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -37,21 +37,24 @@ export const ShowCharacters = ({ title, setEpisodesCharacter }: Props) => {
         />
       </div>
       <div>
-        {characters.data?.results.map((character: any) => (
-          <div key={character.id} onClick={() => handleSetEpisodes(character.episode)}>
-            <h5>{character.name}</h5>
-            <p>{character.status}</p>
-            <p>{character.species}</p>
-          </div>
-        ))}
+        {characters &&
+          characters.results.map((character) => (
+            <div key={character.id} onClick={() => handleSetEpisodes(character.episode)}>
+              <h5>{character.name}</h5>
+              <p>{character.status}</p>
+              <p>{character.species}</p>
+            </div>
+          ))}
       </div>
       <div>
-        <ReactPaginate
-          previousLabel='Anterior'
-          nextLabel='Siguiente'
-          pageCount={characters.data?.info.pages}
-          onPageChange={({ selected }) => setPageNumber(selected + 1)}
-        />
+        {characters && (
+          <ReactPaginate
+            previousLabel='Anterior'
+            nextLabel='Siguiente'
+            pageCount={characters?.info.pages}
+            onPageChange={({ selected }) => setPageNumber(selected + 1)}
+          />
+        )}
       </div>
     </>
   );

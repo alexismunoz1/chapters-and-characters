@@ -27,7 +27,7 @@ export default function Home() {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <main className={`${inter.className}`}>
-        <div style={{ display: "flex", justifyContent: "center", flexDirection: "row" }}>
+        <div>
           <ShowCharacters
             setEpisodesCharacter={setEpisodesCharacter1}
             title='Character #1'

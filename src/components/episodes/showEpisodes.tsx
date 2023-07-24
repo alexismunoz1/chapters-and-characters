@@ -6,25 +6,20 @@ interface Props {
 }
 
 export const ShowEpisodes = ({ title, episodesNum }: Props) => {
-  const episodes = useEpisodes(episodesNum);
+  const { data: episodes } = useEpisodes(episodesNum);
+  console.log({ episodes });
 
   return (
     <>
       <h1>{title}</h1>
       <div>
-        {episodes.data?.name ? (
-          <div>
-            <h5>{episodes.data.name}</h5>
-            <p>{episodes.data.air_date}</p>
-          </div>
-        ) : (
-          episodes.data?.map((episodes: any) => (
+        {episodes &&
+          episodes.map((episodes) => (
             <div key={episodes.id}>
               <h5>{episodes.name}</h5>
               <p>{episodes.air_date}</p>
             </div>
-          ))
-        )}
+          ))}
       </div>
     </>
   );
