@@ -1,12 +1,20 @@
 import Head from "next/head";
 import { Inter } from "next/font/google";
+import { GetStaticProps } from "next";
 import { ShowCharacters } from "@/components/characters/showCharacters";
 import { ShowEpisodes } from "@/components/episodes/showEpisodes";
 import { useEpisodesStore } from "@/store/episodesNumberStore";
+import { CharactersInfo } from "@/hooks/types";
+import { fetchCharactersGet } from "@/api/rickAndMortyApi";
+
+type Props = {
+  initialCharacters: CharactersInfo;
+  pageCountCharacters: number;
+};
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Home() {
+export default function Home({ initialCharacters, pageCountCharacters }: Props) {
   const {
     episodesCharacter1,
     episodesCharacter2,
@@ -29,12 +37,16 @@ export default function Home() {
       <main className={`${inter.className}`}>
         <div>
           <ShowCharacters
-            setEpisodesCharacter={setEpisodesCharacter1}
             title='Character #1'
+            pageCount={pageCountCharacters}
+            initialCharacters={initialCharacters}
+            setEpisodesCharacter={setEpisodesCharacter1}
           />
           <ShowCharacters
-            setEpisodesCharacter={setEpisodesCharacter2}
             title='Character #2'
+            pageCount={pageCountCharacters}
+            initialCharacters={initialCharacters}
+            setEpisodesCharacter={setEpisodesCharacter2}
           />
         </div>
         {episodesCharacter1[0] && episodesCharacter2[0] && (
@@ -51,3 +63,10 @@ export default function Home() {
     </>
   );
 }
+
+export const getStaticProps: GetStaticProps = async () => {
+  const characters = await fetchCharactersGet();
+  return {
+    props: { characters, pageCountCharacters: characters.info.pages },
+  };
+};

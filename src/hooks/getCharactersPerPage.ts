@@ -10,7 +10,16 @@ const fetchCharacters = async (ctx: QueryFunctionContext): Promise<CharactersInf
   return data;
 };
 
-export const useCharacters = (page: number, characterName?: string) => {
+export const useCharacters = (
+  page?: number,
+  characterName?: string,
+  initialData?: CharactersInfo
+) => {
   const queryKey = ["characters", page, characterName];
-  return useQuery(queryKey, fetchCharacters);
+  const { data } = useQuery({
+    queryKey,
+    queryFn: fetchCharacters,
+    initialData,
+  });
+  return data;
 };

@@ -6,8 +6,7 @@ interface Props {
 }
 
 export const ShowEpisodes = ({ title, episodesNum }: Props) => {
-  const { data: episodes } = useEpisodes(episodesNum);
-  console.log({ episodes });
+  const episodes = useEpisodes(episodesNum);
 
   return (
     <>

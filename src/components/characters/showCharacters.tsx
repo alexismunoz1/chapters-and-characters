@@ -1,16 +1,24 @@
 import { useState } from "react";
 import ReactPaginate from "react-paginate";
 import { useCharacters } from "@/hooks/getCharactersPerPage";
+import { CharactersInfo } from "@/hooks/types";
 
 interface Props {
   title: string;
+  pageCount: number;
+  initialCharacters: CharactersInfo;
   setEpisodesCharacter: (episodesCharacter: number[]) => void;
 }
 
-export const ShowCharacters = ({ title, setEpisodesCharacter }: Props) => {
+export const ShowCharacters = ({
+  title,
+  pageCount,
+  initialCharacters,
+  setEpisodesCharacter,
+}: Props) => {
   const [characterNameValue, setCharacterNameValue] = useState("");
   const [pageNumber, setPageNumber] = useState<number>(1);
-  const { data: characters } = useCharacters(pageNumber, characterNameValue);
+  const characters = useCharacters(pageNumber, characterNameValue, initialCharacters);
 
   const handleCharacterName = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -47,14 +55,12 @@ export const ShowCharacters = ({ title, setEpisodesCharacter }: Props) => {
           ))}
       </div>
       <div>
-        {characters && (
-          <ReactPaginate
-            previousLabel='Anterior'
-            nextLabel='Siguiente'
-            pageCount={characters?.info.pages}
-            onPageChange={({ selected }) => setPageNumber(selected + 1)}
-          />
-        )}
+        <ReactPaginate
+          previousLabel='Anterior'
+          nextLabel='Siguiente'
+          pageCount={pageCount}
+          onPageChange={({ selected }) => setPageNumber(selected + 1)}
+        />
       </div>
     </>
   );

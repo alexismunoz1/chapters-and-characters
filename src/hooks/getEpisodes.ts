@@ -12,5 +12,6 @@ const fetchEpisodes = async (ctx: QueryFunctionContext): Promise<EpisodeInfo[]> 
 
 export const useEpisodes = (episodeNumbers: number[]) => {
   const queryKey = ["episodes", episodeNumbers];
-  return useQuery(queryKey, fetchEpisodes);
+  const { data } = useQuery(queryKey, fetchEpisodes);
+  return data;
 };
