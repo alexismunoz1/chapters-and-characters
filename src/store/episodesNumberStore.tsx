@@ -1,15 +1,15 @@
 import { create } from "zustand";
 
 interface EpisodesStore {
-  episodesCharacter1: number[];
-  episodesCharacter2: number[];
-  setEpisodesCharacter1: (episodesCharacter1: number[]) => void;
-  setEpisodesCharacter2: (episodesCharacter2: number[]) => void;
+  character1Episodes: number[];
+  character2Episodes: number[];
+  setCharacter1Episodes: (character1Episodes: number[]) => void;
+  setCharacter2Episodes: (character2Episodes: number[]) => void;
 }
 
 export const useEpisodesStore = create<EpisodesStore>((set) => ({
-  episodesCharacter1: [],
-  episodesCharacter2: [],
-  setEpisodesCharacter1: (episodesCharacter1: number[]) => set({ episodesCharacter1 }),
-  setEpisodesCharacter2: (episodesCharacter2: number[]) => set({ episodesCharacter2 }),
+  character1Episodes: [],
+  character2Episodes: [],
+  setCharacter1Episodes: (character1Episodes: number[]) => set({ character1Episodes }),
+  setCharacter2Episodes: (character2Episodes: number[]) => set({ character2Episodes }),
 }));

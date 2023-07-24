@@ -15,9 +15,8 @@ export const useCharacters = (
   characterName?: string,
   initialData?: CharactersInfo
 ) => {
-  const queryKey = ["characters", page, characterName];
   const { data } = useQuery({
-    queryKey,
+    queryKey: ["characters", page, characterName],
     queryFn: fetchCharacters,
     initialData,
   });

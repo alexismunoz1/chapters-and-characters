@@ -6,6 +6,8 @@ import { ShowEpisodes } from "@/components/episodes/showEpisodes";
 import { useEpisodesStore } from "@/store/episodesNumberStore";
 import { CharactersInfo } from "@/hooks/types";
 import { fetchCharactersGet } from "@/api/rickAndMortyApi";
+import { useEpisodesOfBothCharacters } from "@/store/commonEpisodesStore";
+import { useEffect } from "react";
 
 type Props = {
   initialCharacters: CharactersInfo;
@@ -16,20 +18,20 @@ const inter = Inter({ subsets: ["latin"] });
 
 export default function Home({ initialCharacters, pageCountCharacters }: Props) {
   const {
-    episodesCharacter1,
-    episodesCharacter2,
-    setEpisodesCharacter1,
-    setEpisodesCharacter2,
+    character1Episodes,
+    character2Episodes,
+    setCharacter1Episodes,
+    setCharacter2Episodes,
   } = useEpisodesStore();
+  const { episodesOfBothCharacters, setEpisodesOfBothCharacters } =
+    useEpisodesOfBothCharacters();
 
-  const episodesOfBothCharaters: number[] = [];
-  const uniqueNumbersSet = new Set(episodesCharacter1);
-  episodesCharacter2.forEach((num) => {
-    if (uniqueNumbersSet.has(num)) episodesOfBothCharaters.push(num);
-  });
+  useEffect(() => {
+    setEpisodesOfBothCharacters(character1Episodes, character2Episodes);
+  }, [character1Episodes, character2Episodes]);
 
   return (
-    <>
+    <>  
       <Head>
         <title>Chapters and characters</title>
         <link rel='icon' href='/favicon.ico' />
@@ -40,23 +42,23 @@ export default function Home({ initialCharacters, pageCountCharacters }: Props) 
             title='Character #1'
             pageCount={pageCountCharacters}
             initialCharacters={initialCharacters}
-            setEpisodesCharacter={setEpisodesCharacter1}
+            setEpisodesCharacter={setCharacter1Episodes}
           />
           <ShowCharacters
             title='Character #2'
             pageCount={pageCountCharacters}
             initialCharacters={initialCharacters}
-            setEpisodesCharacter={setEpisodesCharacter2}
+            setEpisodesCharacter={setCharacter2Episodes}
           />
         </div>
-        {episodesCharacter1[0] && episodesCharacter2[0] && (
+        {character1Episodes[0] && character2Episodes[0] && (
           <div>
-            <ShowEpisodes episodesNum={episodesCharacter1} title='Character #1' />
+            <ShowEpisodes episodesNum={character1Episodes} title='Character #1' />
             <ShowEpisodes
-              episodesNum={episodesOfBothCharaters}
+              episodesNum={episodesOfBothCharacters}
               title='Character #1 & #2'
             />
-            <ShowEpisodes episodesNum={episodesCharacter2} title='Character #2' />
+            <ShowEpisodes episodesNum={character2Episodes} title='Character #2' />
           </div>
         )}
       </main>
