@@ -1,18 +1,18 @@
+import { useEffect } from "react";
 import Head from "next/head";
 import { Inter } from "next/font/google";
 import { GetStaticProps } from "next";
 import { ShowCharacters } from "@/components/characters/showCharacters";
 import { ShowEpisodes } from "@/components/episodes/showEpisodes";
 import { useEpisodesStore } from "@/store/episodesNumberStore";
-import { CharactersInfo } from "@/hooks/types";
-import { fetchCharactersGet } from "@/api/rickAndMortyApi";
 import { useEpisodesOfBothCharacters } from "@/store/commonEpisodesStore";
-import { useEffect } from "react";
+import { fetchCharactersGet } from "@/lib/api";
+import { CharactersInfo } from "@/lib/types";
 
-type Props = {
+interface Props {
   initialCharacters: CharactersInfo;
   pageCountCharacters: number;
-};
+}
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -31,7 +31,7 @@ export default function Home({ initialCharacters, pageCountCharacters }: Props) 
   }, [character1Episodes, character2Episodes]);
 
   return (
-    <>  
+    <>
       <Head>
         <title>Chapters and characters</title>
         <link rel='icon' href='/favicon.ico' />

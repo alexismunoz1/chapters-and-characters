@@ -1,4 +1,4 @@
-import { CharactersInfo } from "@/hooks/types";
+import { CharactersInfo } from "@/lib/types";
 import axios from "axios";
 
 export const rickAndMortyApi = axios.create({

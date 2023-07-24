@@ -1,6 +1,6 @@
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
-import { rickAndMortyApi } from "@/api/rickAndMortyApi";
-import { CharactersInfo } from "./types";
+import { rickAndMortyApi } from "@/lib/api";
+import { CharactersInfo } from "@/lib/types";
 
 const fetchCharacters = async (ctx: QueryFunctionContext): Promise<CharactersInfo> => {
   const [_, page, characterName] = ctx.queryKey;
@@ -15,10 +15,9 @@ export const useCharacters = (
   characterName?: string,
   initialData?: CharactersInfo
 ) => {
-  const { data } = useQuery({
+  return useQuery({
     queryKey: ["characters", page, characterName],
     queryFn: fetchCharacters,
     initialData,
   });
-  return data;
 };

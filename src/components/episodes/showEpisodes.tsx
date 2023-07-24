@@ -1,4 +1,6 @@
 import { useEpisodes } from "@/hooks/getEpisodes";
+import { EpisodeList } from "@/ui-kit/list";
+import { SubTitle } from "@/ui-kit/typography";
 
 interface Props {
   title: string;
@@ -6,20 +8,19 @@ interface Props {
 }
 
 export const ShowEpisodes = ({ title, episodesNum }: Props) => {
-  const episodes = useEpisodes(episodesNum);
+  const { data: episodes } = useEpisodes(episodesNum);
 
   return (
     <>
-      <h1>{title}</h1>
-      <div>
-        {episodes &&
-          episodes.map((episodes) => (
-            <div key={episodes.id}>
-              <h5>{episodes.name}</h5>
-              <p>{episodes.air_date}</p>
-            </div>
-          ))}
-      </div>
+      <SubTitle>{title}</SubTitle>
+      {episodes &&
+        episodes.map((episodes) => (
+          <EpisodeList
+            key={episodes.id}
+            name={episodes.name}
+            air_date={episodes.air_date}
+          />
+        ))}
     </>
   );
 };

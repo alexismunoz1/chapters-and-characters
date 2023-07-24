@@ -1,7 +1,10 @@
 import { useState } from "react";
 import ReactPaginate from "react-paginate";
 import { useCharacters } from "@/hooks/getCharactersPerPage";
-import { CharactersInfo } from "@/hooks/types";
+import { CharactersInfo } from "@/lib/types";
+import { CharacterCard } from "@/ui-kit/cards";
+import { SubTitle } from "@/ui-kit/typography";
+import { TextField } from "@/ui-kit/textfields";
 
 interface Props {
   title: string;
@@ -18,7 +21,11 @@ export const ShowCharacters = ({
 }: Props) => {
   const [characterNameValue, setCharacterNameValue] = useState("");
   const [pageNumber, setPageNumber] = useState<number>(1);
-  const characters = useCharacters(pageNumber, characterNameValue, initialCharacters);
+  const { data: characters } = useCharacters(
+    pageNumber,
+    characterNameValue,
+    initialCharacters
+  );
 
   const handleCharacterName = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -36,9 +43,9 @@ export const ShowCharacters = ({
 
   return (
     <>
-      <h1>{title}</h1>
+      <SubTitle>{title}</SubTitle>
       <div>
-        <input
+        <TextField
           type='text'
           placeholder='Search character'
           onChange={handleCharacterName}
@@ -47,19 +54,28 @@ export const ShowCharacters = ({
       <div>
         {characters &&
           characters.results.map((character) => (
-            <div key={character.id} onClick={() => handleSetEpisodes(character.episode)}>
-              <h5>{character.name}</h5>
-              <p>{character.status}</p>
-              <p>{character.species}</p>
-            </div>
+            <CharacterCard
+              key={character.id}
+              image={character.image}
+              name={character.name}
+              status={character.status}
+              species={character.species}
+              onClick={() => handleSetEpisodes(character.episode)}
+            />
           ))}
       </div>
       <div>
         <ReactPaginate
-          previousLabel='Anterior'
-          nextLabel='Siguiente'
+          previousLabel='< Previous'
+          nextLabel='Next >'
           pageCount={pageCount}
+          pageRangeDisplayed={1}
           onPageChange={({ selected }) => setPageNumber(selected + 1)}
+          containerClassName='pagination'
+          previousLinkClassName='pagination__link'
+          nextLinkClassName='pagination__link'
+          disabledClassName='pagination__link--disabled'
+          activeClassName='pagination__link--active'
         />
       </div>
     </>

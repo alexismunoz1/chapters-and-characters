@@ -1,6 +1,6 @@
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
-import { rickAndMortyApi } from "@/api/rickAndMortyApi";
-import { EpisodeInfo } from "./types";
+import { rickAndMortyApi } from "@/lib/api";
+import { EpisodeInfo } from "@/lib/types";
 
 const fetchEpisodes = async (ctx: QueryFunctionContext): Promise<EpisodeInfo[]> => {
   const [_, episodeNumbers] = ctx.queryKey;
@@ -12,6 +12,5 @@ const fetchEpisodes = async (ctx: QueryFunctionContext): Promise<EpisodeInfo[]> 
 
 export const useEpisodes = (episodeNumbers: number[]) => {
   const queryKey = ["episodes", episodeNumbers];
-  const { data } = useQuery(queryKey, fetchEpisodes);
-  return data;
+  return useQuery(queryKey, fetchEpisodes);
 };
