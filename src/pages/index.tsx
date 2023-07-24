@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { Inter } from "next/font/google";
 import { ShowCharacters } from "@/components/characters/showCharacters";
-import { CharacterEpisodes } from "@/components/episodes/characterEpisodes";
+import { ShowEpisodes } from "@/components/episodes/showEpisodes";
 import { useEpisodesStore } from "@/store/episodesNumberStore";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -28,17 +28,25 @@ export default function Home() {
       </Head>
       <main className={`${inter.className}`}>
         <div style={{ display: "flex", justifyContent: "center", flexDirection: "row" }}>
-          <ShowCharacters setEpisodesCharacter={setEpisodesCharacter1} />
-          <ShowCharacters setEpisodesCharacter={setEpisodesCharacter2} />
-        </div>
-        <div>
-          <CharacterEpisodes episodesNum={episodesCharacter1} title='Character #1' />
-          <CharacterEpisodes
-            episodesNum={episodesOfBothCharaters}
-            title='Character #1 & #2'
+          <ShowCharacters
+            setEpisodesCharacter={setEpisodesCharacter1}
+            title='Character #1'
           />
-          <CharacterEpisodes episodesNum={episodesCharacter2} title='Character #2' />
+          <ShowCharacters
+            setEpisodesCharacter={setEpisodesCharacter2}
+            title='Character #2'
+          />
         </div>
+        {episodesCharacter1[0] && episodesCharacter2[0] && (
+          <div>
+            <ShowEpisodes episodesNum={episodesCharacter1} title='Character #1' />
+            <ShowEpisodes
+              episodesNum={episodesOfBothCharaters}
+              title='Character #1 & #2'
+            />
+            <ShowEpisodes episodesNum={episodesCharacter2} title='Character #2' />
+          </div>
+        )}
       </main>
     </>
   );
