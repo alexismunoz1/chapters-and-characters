@@ -28,7 +28,8 @@ export default function Home({ initialCharacters }: Props) {
   const { episodesOfBothCharacters, setEpisodesOfBothCharacters } =
     useEpisodesOfBothCharacters();
 
-  const { setCharacterName1, setCharacterName2 } = useSelectedCharacterStore();
+  const { characterName1, characterName2, setCharacterName1, setCharacterName2 } =
+    useSelectedCharacterStore();
 
   useEffect(() => {
     setEpisodesOfBothCharacters(character1Episodes, character2Episodes);
@@ -59,7 +60,7 @@ export default function Home({ initialCharacters }: Props) {
           {character1Episodes[0] && character2Episodes[0] && (
             <div className='episodesContainer'>
               <ShowEpisodes
-                title='Character #1 - Only Episodes'
+                title={`Character #1: ${characterName1}`}
                 episodesNum={character1Episodes}
               />
               <ShowEpisodes
@@ -67,7 +68,7 @@ export default function Home({ initialCharacters }: Props) {
                 episodesNum={episodesOfBothCharacters}
               />
               <ShowEpisodes
-                title='Character #2 - Only Episodes'
+                title={`Character #2: ${characterName2}`}
                 episodesNum={character2Episodes}
               />
             </div>
