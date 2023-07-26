@@ -1,3 +1,13 @@
+:root {
+  --green: #55cc44;
+  --black: #000;
+  --white: #fff;
+  --grey-01: #e5e5f7;
+  --grey-02: rgb(198, 197, 202);
+  --grey-03: #3c3e44;
+  --grey-04: #272b33;
+}
+
 * {
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
@@ -36,9 +46,24 @@ button {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  background-color: var(--grey-01);
+  background-image: radial-gradient(var(--green) 1.1px, var(--grey-01) 1.1px);
+  background-size: 22px 22px;
 }
+
+.episodesContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  background-color: var(--grey-01);
+  padding-bottom: 30px;
+}
+
 @media (max-width: 1300px) {
   .charactersContainer {
+    flex-direction: column;
+  }
+  .episodesContainer {
     flex-direction: column;
   }
 }

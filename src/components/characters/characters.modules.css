@@ -2,9 +2,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 20px;
 }
 
-.showCharactersTitle {
+.showCharactersTitleAndInput {
   margin-bottom: 30px;
   text-align: center;
 }
@@ -24,13 +25,15 @@
 .pagination {
   display: flex;
   list-style: none;
-  cursor: pointer;
+  margin: 50px;
 }
 
 .pagination a {
   padding: 5px;
   border-radius: 5px;
-  border: 1px solid green;
+  border: 1px solid var(--green);
+  cursor: pointer;
+  background-color: white;
 }
 
 .pagination__link {
@@ -40,11 +43,11 @@
 }
 
 .pagination__link--active a {
-  color: #fff;
-  background: green;
+  color: var(--white);
+  background: var(--green);
 }
 
 .pagination__link--disabled a {
-  color: rgb(198, 197, 202);
-  border: 1px solid rgb(198, 197, 202);
+  color: var(--grey-light);
+  border: 1px solid var(--grey-light);
 }

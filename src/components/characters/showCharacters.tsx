@@ -47,7 +47,7 @@ export const ShowCharacters = ({
 
   return (
     <div className='showCharactersContainer'>
-      <div className='showCharactersTitle'>
+      <div className='showCharactersTitleAndInput'>
         <SubTitle style={{ marginBottom: "10px" }}>{title}</SubTitle>
         <TextField
           type='text'

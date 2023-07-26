@@ -11,8 +11,10 @@ export const ShowEpisodes = ({ title, episodesNum }: Props) => {
   const { data: episodes } = useEpisodes(episodesNum);
 
   return (
-    <div className='episodesContainer'>
-      <SubTitle>{title}</SubTitle>
+    <div className='showEpisodesContainer'>
+      <div className='episodesListTitle'>
+        <SubTitle>{title}</SubTitle>
+      </div>
       <div className='episodesList'>
         {episodes &&
           episodes.map((episodes) => (

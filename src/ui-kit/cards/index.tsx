@@ -13,7 +13,7 @@ interface Props {
 const CardContent = styled.div<{ active?: boolean }>`
   display: flex;
   flex-direction: row;
-  background-color: #333333;
+  background-color: var(--grey-03);
   border-radius: 5px;
   cursor: pointer;
   &:hover {
@@ -32,26 +32,24 @@ const ContentInfo = styled.div`
   display: flex;
   flex-direction: column;
   padding: 10px;
-  color: white;
+  color: var(--white);
 `;
 
 export const CharacterCard = ({ image, name, status, species, onClick }: Props) => {
   return (
     <CardContent onClick={onClick}>
-      <div>
-        <Image
-          style={{ borderRadius: "5px" }}
-          width={100}
-          height={100}
-          src={image}
-          alt={name}
-          priority={true}
-        />
-      </div>
+      <Image
+        style={{ borderRadius: "5px 0 0 5px", objectFit: "contain" }}
+        width={100}
+        height={100}
+        src={image}
+        alt={name}
+        priority={true}
+      />
       <ContentInfo>
-        <LargeBoldText>{name}</LargeBoldText>
-        <BodyText>Status: {status}</BodyText>
-        <BodyText>Specie: {species}</BodyText>
+        <LargeBoldText style={{ marginBottom: "5px" }}>{name}</LargeBoldText>
+        <BodyText>- Status: {status}</BodyText>
+        <BodyText>- Specie: {species}</BodyText>
       </ContentInfo>
     </CardContent>
   );
