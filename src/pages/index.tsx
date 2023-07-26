@@ -7,6 +7,7 @@ import { ShowCharacters } from "@/components/characters/showCharacters";
 import { ShowEpisodes } from "@/components/episodes/showEpisodes";
 import { useEpisodesStore } from "@/store/episodesNumberStore";
 import { useEpisodesOfBothCharacters } from "@/store/commonEpisodesStore";
+import { useSelectedCharacterStore } from "@/store/selectedCharacterStore";
 import { fetchCharacters } from "@/lib/api";
 import { CharactersInfo } from "@/lib/types";
 
@@ -27,6 +28,8 @@ export default function Home({ initialCharacters }: Props) {
   const { episodesOfBothCharacters, setEpisodesOfBothCharacters } =
     useEpisodesOfBothCharacters();
 
+  const { setCharacterName1, setCharacterName2 } = useSelectedCharacterStore();
+
   useEffect(() => {
     setEpisodesOfBothCharacters(character1Episodes, character2Episodes);
   }, [character1Episodes, character2Episodes]);
@@ -44,11 +47,13 @@ export default function Home({ initialCharacters }: Props) {
               title='Character #1'
               initialCharacters={initialCharacters}
               setEpisodesCharacter={setCharacter1Episodes}
+              setCharacter={setCharacterName1}
             />
             <ShowCharacters
               title='Character #2'
               initialCharacters={initialCharacters}
               setEpisodesCharacter={setCharacter2Episodes}
+              setCharacter={setCharacterName2}
             />
           </div>
           {character1Episodes[0] && character2Episodes[0] && (

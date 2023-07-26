@@ -10,16 +10,17 @@ interface Props {
   title: string;
   initialCharacters: CharactersInfo;
   setEpisodesCharacter: (episodesCharacter: number[]) => void;
+  setCharacter: (character: string) => void;
 }
 
 export const ShowCharacters = ({
   title,
   initialCharacters,
   setEpisodesCharacter,
+  setCharacter,
 }: Props) => {
   const [characterName, setCharacterName] = useState("");
   const [pageNumber, setPageNumber] = useState(1);
-  const [cardIsActive, setCardIsActive] = useState(false);
   const { data: characters } = useCharacters(
     pageNumber,
     characterName,
@@ -35,14 +36,14 @@ export const ShowCharacters = ({
     setCharacterName(e.target.value);
   };
 
-  const handleSetEpisodes = (episodesUrls: string[]) => {
+  const handleSetEpisodes = (episodesUrls: string[], characterName: string) => {
     const episodesNumbers = episodesUrls.map((url) => {
       const parts = url.split("/");
       const number = Number(parts[parts.length - 1]);
       return number;
     });
     setEpisodesCharacter(episodesNumbers);
-    setCardIsActive(!cardIsActive);
+    setCharacter(characterName);
   };
 
   return (
@@ -64,7 +65,7 @@ export const ShowCharacters = ({
               name={character.name}
               status={character.status}
               species={character.species}
-              onClick={() => handleSetEpisodes(character.episode)}
+              onClick={() => handleSetEpisodes(character.episode, character.name)}
             />
           ))}
       </div>
