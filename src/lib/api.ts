@@ -5,7 +5,7 @@ export const rickAndMortyApi = axios.create({
   baseURL: "https://rickandmortyapi.com/api",
 });
 
-export const fetchCharactersGet = async (): Promise<CharactersInfo> => {
+export const fetchCharacters = async (): Promise<CharactersInfo> => {
   const { data } = await rickAndMortyApi.get(`/character`);
   return data;
 };

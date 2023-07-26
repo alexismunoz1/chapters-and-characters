@@ -10,11 +10,22 @@ interface Props {
   onClick: () => void;
 }
 
-const CardContent = styled.div`
+const CardContent = styled.div<{ active?: boolean }>`
   display: flex;
   flex-direction: row;
   background-color: #333333;
-  margin: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+    transition: all 0.3s ease-in-out;
+    transform: scale(1.05);
+  }
+  &:active {
+    opacity: 0.6;
+    transition: all 0.3s ease-in-out;
+    transform: scale(1);
+  }
 `;
 
 const ContentInfo = styled.div`
@@ -28,7 +39,14 @@ export const CharacterCard = ({ image, name, status, species, onClick }: Props) 
   return (
     <CardContent onClick={onClick}>
       <div>
-        <Image width={100} height={100} src={image} alt={name} priority={true} />
+        <Image
+          style={{ borderRadius: "5px" }}
+          width={100}
+          height={100}
+          src={image}
+          alt={name}
+          priority={true}
+        />
       </div>
       <ContentInfo>
         <LargeBoldText>{name}</LargeBoldText>

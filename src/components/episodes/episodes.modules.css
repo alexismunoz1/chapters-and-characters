@@ -1,0 +1,10 @@
+.episodesContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.episodesList {
+  display: flex;
+  flex-direction: column;
+}

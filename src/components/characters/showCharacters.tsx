@@ -8,50 +8,54 @@ import { TextField } from "@/ui-kit/textfields";
 
 interface Props {
   title: string;
-  pageCount: number;
   initialCharacters: CharactersInfo;
   setEpisodesCharacter: (episodesCharacter: number[]) => void;
 }
 
 export const ShowCharacters = ({
   title,
-  pageCount,
   initialCharacters,
   setEpisodesCharacter,
 }: Props) => {
-  const [characterNameValue, setCharacterNameValue] = useState("");
-  const [pageNumber, setPageNumber] = useState<number>(1);
+  const [characterName, setCharacterName] = useState("");
+  const [pageNumber, setPageNumber] = useState(1);
+  const [cardIsActive, setCardIsActive] = useState(false);
   const { data: characters } = useCharacters(
     pageNumber,
-    characterNameValue,
+    characterName,
     initialCharacters
   );
 
-  const handleCharacterName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    setCharacterNameValue(e.target.value);
+  const handlePageClick = ({ selected }: { selected: number }) => {
+    setPageNumber(selected + 1);
+  };
+
+  const handleChangeCharacterName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPageNumber(1);
+    setCharacterName(e.target.value);
   };
 
   const handleSetEpisodes = (episodesUrls: string[]) => {
-    const episodesNumbersOfUrls: number[] = episodesUrls.map((url) => {
+    const episodesNumbers = episodesUrls.map((url) => {
       const parts = url.split("/");
       const number = Number(parts[parts.length - 1]);
       return number;
     });
-    setEpisodesCharacter(episodesNumbersOfUrls);
+    setEpisodesCharacter(episodesNumbers);
+    setCardIsActive(!cardIsActive);
   };
 
   return (
-    <>
-      <SubTitle>{title}</SubTitle>
-      <div>
+    <div className='showCharactersContainer'>
+      <div className='showCharactersTitle'>
+        <SubTitle style={{ marginBottom: "10px" }}>{title}</SubTitle>
         <TextField
           type='text'
           placeholder='Search character'
-          onChange={handleCharacterName}
+          onChange={handleChangeCharacterName}
         />
       </div>
-      <div>
+      <div className='charactersList'>
         {characters &&
           characters.results.map((character) => (
             <CharacterCard
@@ -68,9 +72,9 @@ export const ShowCharacters = ({
         <ReactPaginate
           previousLabel='< Previous'
           nextLabel='Next >'
-          pageCount={pageCount}
+          pageCount={initialCharacters.info.pages}
           pageRangeDisplayed={1}
-          onPageChange={({ selected }) => setPageNumber(selected + 1)}
+          onPageChange={handlePageClick}
           containerClassName='pagination'
           previousLinkClassName='pagination__link'
           nextLinkClassName='pagination__link'
@@ -78,6 +82,6 @@ export const ShowCharacters = ({
           activeClassName='pagination__link--active'
         />
       </div>
-    </>
+    </div>
   );
 };

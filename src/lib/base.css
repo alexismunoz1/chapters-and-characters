@@ -27,29 +27,18 @@ button {
   cursor: pointer;
 }
 
-.pagination {
+.mainContainer {
   display: flex;
-  justify-content: space-between;
-  list-style: none;
-  cursor: pointer;
+  flex-direction: column;
 }
 
-.pagination a {
-  padding: 5px;
-  border-radius: 5px;
-  border: 1px solid green;
+.charactersContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
-
-.pagination__link {
-  font-weight: bold;
-}
-
-.pagination__link--active a {
-  color: #fff;
-  background: green;
-}
-
-.pagination__link--disabled a {
-  color: rgb(198, 197, 202);
-  border: 1px solid rgb(198, 197, 202);
+@media (max-width: 1300px) {
+  .charactersContainer {
+    flex-direction: column;
+  }
 }
