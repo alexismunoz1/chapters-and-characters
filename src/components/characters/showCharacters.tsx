@@ -20,6 +20,7 @@ export const ShowCharacters = ({
   setCharacter,
 }: Props) => {
   const [characterName, setCharacterName] = useState("");
+  const [characterId, setCharacterId] = useState<number>();
   const [pageNumber, setPageNumber] = useState(1);
   const { data: characters } = useCharacters(
     pageNumber,
@@ -36,14 +37,13 @@ export const ShowCharacters = ({
     setCharacterName(e.target.value);
   };
 
-  const handleSetEpisodes = (episodesUrls: string[], characterName: string) => {
+  const handleSetEpisodes = (episodesUrls: string[]) => {
     const episodesNumbers = episodesUrls.map((url) => {
       const parts = url.split("/");
       const number = Number(parts[parts.length - 1]);
       return number;
     });
     setEpisodesCharacter(episodesNumbers);
-    setCharacter(characterName);
   };
 
   return (
@@ -65,7 +65,12 @@ export const ShowCharacters = ({
               name={character.name}
               status={character.status}
               species={character.species}
-              onClick={() => handleSetEpisodes(character.episode, character.name)}
+              active={character.id === characterId ? true : false}
+              onClick={() => {
+                handleSetEpisodes(character.episode);
+                setCharacter(character.name);
+                setCharacterId(character.id);
+              }}
             />
           ))}
       </div>

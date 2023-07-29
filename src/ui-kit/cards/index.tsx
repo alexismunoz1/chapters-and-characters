@@ -7,15 +7,18 @@ interface Props {
   name: string;
   status: string;
   species: string;
+  active?: boolean;
   onClick: () => void;
 }
 
-const CardContent = styled.div<{ active?: boolean }>`
+const CardContent = styled.div<{ $active?: boolean }>`
   display: flex;
   flex-direction: row;
-  background-color: var(--grey-03);
+  background-color: ${({ $active }) => ($active ? "var(--grey-03)" : "var(--grey-04)")};
   border-radius: 5px;
   cursor: pointer;
+  box-shadow: ${({ $active }) => $active && "0px 0px 9px 6px rgba(84,204,68,0.69)"};
+  color: var(--white);
   &:hover {
     opacity: 0.8;
     transition: all 0.3s ease-in-out;
@@ -32,12 +35,18 @@ const ContentInfo = styled.div`
   display: flex;
   flex-direction: column;
   padding: 10px;
-  color: var(--white);
 `;
 
-export const CharacterCard = ({ image, name, status, species, onClick }: Props) => {
+export const CharacterCard = ({
+  image,
+  name,
+  status,
+  species,
+  active,
+  onClick,
+}: Props) => {
   return (
-    <CardContent onClick={onClick}>
+    <CardContent onClick={onClick} $active={active}>
       <Image
         style={{ borderRadius: "5px 0 0 5px", objectFit: "contain" }}
         width={100}
