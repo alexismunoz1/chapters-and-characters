@@ -1,10 +1,10 @@
 import { useState } from "react";
-import ReactPaginate from "react-paginate";
 import { useCharacters } from "@/hooks/getCharactersPerPage";
 import { CharactersInfo } from "@/lib/types";
 import { CharacterCard } from "@/ui-kit/cards";
 import { SubTitle } from "@/ui-kit/typography";
 import { TextField } from "@/ui-kit/textfields";
+import { PaginateCharacters } from "@/ui-kit/paginate";
 
 interface Props {
   title: string;
@@ -20,7 +20,7 @@ export const ShowCharacters = ({
   setCharacter,
 }: Props) => {
   const [characterName, setCharacterName] = useState("");
-  const [characterId, setCharacterId] = useState<number>();
+  const [characterId, setCharacterId] = useState<number>(0);
   const [pageNumber, setPageNumber] = useState(1);
   const { data: characters } = useCharacters(
     pageNumber,
@@ -28,7 +28,7 @@ export const ShowCharacters = ({
     initialCharacters
   );
 
-  const handlePageClick = ({ selected }: { selected: number }) => {
+  const handlePageChange = ({ selected }: { selected: number }) => {
     setPageNumber(selected + 1);
   };
 
@@ -65,7 +65,7 @@ export const ShowCharacters = ({
               name={character.name}
               status={character.status}
               species={character.species}
-              active={character.id === characterId ? true : false}
+              active={character.id === characterId}
               onClick={() => {
                 handleSetEpisodes(character.episode);
                 setCharacter(character.name);
@@ -75,17 +75,9 @@ export const ShowCharacters = ({
           ))}
       </div>
       <div>
-        <ReactPaginate
-          previousLabel='< Previous'
-          nextLabel='Next >'
+        <PaginateCharacters
           pageCount={initialCharacters.info.pages}
-          pageRangeDisplayed={1}
-          onPageChange={handlePageClick}
-          containerClassName='pagination'
-          previousLinkClassName='pagination__link'
-          nextLinkClassName='pagination__link'
-          disabledClassName='pagination__link--disabled'
-          activeClassName='pagination__link--active'
+          onPageChange={handlePageChange}
         />
       </div>
     </div>
