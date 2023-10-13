@@ -28,10 +28,6 @@ export const ShowCharacters = ({
     initialCharacters
   );
 
-  const handlePageChange = ({ selected }: { selected: number }) => {
-    setPageNumber(selected + 1);
-  };
-
   const handleChangeCharacterName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPageNumber(1);
     setCharacterName(e.target.value);
@@ -77,7 +73,7 @@ export const ShowCharacters = ({
       <div>
         <PaginateCharacters
           pageCount={initialCharacters.info.pages}
-          onPageChange={handlePageChange}
+          onPageChange={({ selected }) => setPageNumber(selected + 1)}
         />
       </div>
     </div>

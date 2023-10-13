@@ -4,6 +4,7 @@
   align-items: center;
   margin-top: 20px;
   padding: 0 20px;
+  color: #fff;
 }
 
 .showCharactersTitleAndInput {
@@ -34,8 +35,9 @@
   border-radius: 5px;
   border: 1px solid var(--green);
   cursor: pointer;
-  background-color: white;
   margin-left: 5px;
+  background-color: #181a1b;
+  color: #3391ff;
 }
 
 .pagination__link {
@@ -43,8 +45,8 @@
 }
 
 .pagination__link--active a {
-  color: var(--white);
-  background: var(--green);
+  color: #fff;
+  background: #50982a;
 }
 
 .pagination__link--disabled a {

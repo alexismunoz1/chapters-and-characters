@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Link } from "@/ui-kit/links";
 
 const FooterCont = styled.footer`
-  background-color: var(--grey-04);
+  background-color: #1f2229;
   display: flex;
   flex-direction: row;
   justify-content: center;

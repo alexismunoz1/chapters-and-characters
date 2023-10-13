@@ -4,7 +4,7 @@ import { useSelectedCharacterStore } from "@/store/selectedCharacterStore";
 import { LargeText, LargeBoldText } from "@/ui-kit/typography";
 
 const HeaderCont = styled.header`
-  background-color: var(--grey-04);
+  background-color: #1f2229;
   display: flex;
   flex-direction: row;
   padding: 15px;

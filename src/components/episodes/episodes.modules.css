@@ -1,15 +1,17 @@
 .showEpisodesContainer {
   display: flex;
   flex-direction: column;
-  border-top: 1px solid var(--grey-03);
-  border-left: 1px solid var(--grey-03);
+  border-top: 1px solid #7d7467;
+  border-left: 1px solid #7d7467;
   width: 100%;
+  color: #fff;
+  background-color: #222426;
 }
 
 .episodesListTitle {
   padding: 5px;
-  background-color: var(--grey-02);
-  border-bottom: 1px solid var(--grey-04);
+  background-color: #373c3e;
+  border-bottom: 1px solid #7d7467;
 }
 
 .episodesList {

@@ -46,8 +46,8 @@ button {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  background-color: var(--grey-01);
-  background-image: radial-gradient(var(--green) 1.1px, var(--grey-01) 1.1px);
+  background-color: #222426;
+  background-image: radial-gradient(#50982a 1.1px, #222426 1.1px);
   background-size: 22px 22px;
   padding-top: 70px;
 }
@@ -56,7 +56,7 @@ button {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  background-color: var(--grey-01);
+  background-color: #222426;
   padding-bottom: 30px;
 }
 
