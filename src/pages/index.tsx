@@ -35,7 +35,7 @@ export default function Home({ initialCharacters }: Props) {
     setEpisodesOfBothCharacters(character1Episodes, character2Episodes);
   }, [character1Episodes, character2Episodes]);
 
-  console.log("test");
+  console.log("Hola mundo");
 
   return (
     <>
